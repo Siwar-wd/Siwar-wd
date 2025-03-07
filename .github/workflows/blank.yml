@@ -1,0 +1,20 @@
+name: SonarQube Analysis
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        with:
+          host: http://localhost:9000  # Remplacez par l'URL de votre instance SonarQube
+          projectKey: API
+          projectName: API
+          token: ${{ secrets.SONAR_TOKEN }}
